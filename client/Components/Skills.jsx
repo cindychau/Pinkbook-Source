@@ -7,22 +7,6 @@ const Skills = (props) => {
   const [rating, setRating] = useState('');
   const [clicked, setClick] = useState(false);
 
-  //   <form style={cardStyling}>
-  //   <h2>Skills</h2>
-  //   <label>Skill Name and Rating</label>
-  //   <input
-  //     type="text"
-  //     placeholder="Skill Name"
-  //     onChange={(e) => setSkill(e.target.value)}
-  //   />
-  //   <input
-  //     type="number"
-  //     placeholder="Rating"
-  //     onChange={(e) => setRating(e.target.value)}
-  //   />
-  //   <button onClick={handleSubmit}>Submit</button>
-  // </form>
-
   const cardStyling = {
     border: 'solid',
     textAlign: 'center',
@@ -39,12 +23,6 @@ const Skills = (props) => {
       setClick(false);
     }
   };
-
-  // const stars = [];
-  // for (let i = 0; i < props.rating; i += 1) {
-  //   stars.push(<i class="fa fa-star" aria-hidden="true"></i>);
-  // }
-  // console.log(stars);
 
   //we start with a hook in skills that refers to whether the update button was clicked set to false
 

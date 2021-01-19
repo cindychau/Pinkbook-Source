@@ -19,7 +19,8 @@ class App extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.submitChanges = this.submitChanges.bind(this);
   }
-
+  
+  //drills from App to Notebook to Skills
   deleteSkillsCard(events, skillsid, notebook_id) {
     fetch(`/api/skills/${skillsid}`, {
       method: 'DELETE',
@@ -33,7 +34,7 @@ class App extends Component {
     console.log(skillsid);
     console.log(notebook_id);
   }
-
+  //drills from App to Notebook
   handleSubmit(events, skill, rating, id) {
     events.preventDefault();
 
@@ -56,7 +57,7 @@ class App extends Component {
 
     this.setState({ count: this.state.count + 1 });
   }
-
+  //drills from App to Notebook to Skills
   submitChanges(events, skill, rating, id, notebook_id) {
     console.log('ID', id);
     events.preventDefault();
@@ -78,6 +79,7 @@ class App extends Component {
       .then((data) => this.setState({ notebookList: data }));
   }
 
+  //fetches for the notebooks
   componentDidMount() {
     //fetches all information on all notebooks
     fetch('/api/all')

@@ -1,3 +1,5 @@
+//! DID NOT GET WORKING YET
+
 import React, { useEffect, useState } from 'react';
 
 import { BrowserRouter as Router, Route } from 'react-router-dom';
@@ -19,7 +21,6 @@ const Home = () => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        //! unsure of id
         _id: 38, 
         name: name,
         description: description,

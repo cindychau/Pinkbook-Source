@@ -6,18 +6,9 @@ import Notes from './Notes.jsx';
 
 const Notebook = (props) => {
   const [skill, setSkill] = useState('');
-  // console.log('Skill in notebook.js', skill)
   const [rating, setRating] = useState('');
-  // console.log('Rating in notebook', rating)
   const [id, setId] = useState('');
   const [data, setData] = useState([]);
-
-  console.log(props);
-
-  // const cardStyling = {
-  //   border: 'solid',
-  //   textAlign: 'center',
-  // };
 
   const flexBox = {
     display: 'flex',
@@ -63,8 +54,6 @@ const Notebook = (props) => {
         />
         <button
           onClick={(events) => {
-            // console.log("skill in button", skill)
-            // console.log('rating in button', rating)
             props.handleSubmit(events, skill, rating, props.notebook_id);
           }}
         >
