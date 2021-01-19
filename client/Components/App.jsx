@@ -13,7 +13,7 @@ class App extends Component {
     super(props);
     this.state = {
       notebookList: [],
-      count: 21,
+      count: 30, //this allows the id to be unique - don't think we need this though as id is serial from the backend.
     };
     this.deleteSkillsCard = this.deleteSkillsCard.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
