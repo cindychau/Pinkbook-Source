@@ -4,7 +4,7 @@ const fs = require("fs");
 const path = require("path");
 const cors = require("cors");
 const helmet = require("helmet");
-const bodyParser = require("body-parser");
+// const bodyParser = require("body-parser");
 
 // require('dotenv').config();
 

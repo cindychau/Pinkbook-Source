@@ -1,12 +1,12 @@
-const { response } = require("express");
-const db = require("../Models/pinkbooksql.js");
+const { response } = require('express');
+const db = require('../Models/pinkbooksql.js');
 
 const notebookController = {};
 
 //Get all notebooks
 
 notebookController.getNotebooks = (req, res, next) => {
-  const allNotebooksSQL = "SELECT * FROM notebook";
+  const allNotebooksSQL = 'SELECT * FROM notebook';
   db.query(allNotebooksSQL, (error, response) => {
     if (error) {
       console.log(error);
@@ -24,15 +24,12 @@ notebookController.getNotebooks = (req, res, next) => {
 notebookController.addNotebook = (req, res, next) => {
   const addNotebookSQL = {
     text:
-      "INSERT INTO notebook (_id, name, description, date_created, page_number, date_updated, shared_with) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
+      'INSERT INTO notebook (name, description, date_created, shared_with) VALUES ($1, $2, $3, $4) RETURNING *',
     values: [
-      req.body._id,
       req.body.name,
       req.body.description,
-      req.body["date_created"],
-      req.body["page_number"],
-      req.body["date_updated"],
-      req.body["shared_with"],
+      req.body['date_created'],
+      req.body['shared_with'],
     ],
   };
 
@@ -49,8 +46,8 @@ notebookController.addNotebook = (req, res, next) => {
 //Adding notes when adding a new notebook
 notebookController.addNotesForAddingNotebook = (req, res, next) => {
   const addNotesSQL = {
-    text: "INSERT INTO notes (notebook_id, textbox) VALUES ($1, $2)",
-    values: [req.body._id, ""],
+    text: 'INSERT INTO notes (notebook_id, textbox) VALUES ($1, $2)',
+    values: [req.body._id, ''],
   };
   db.query(addNotesSQL, (error, response) => {
     if (error) {
@@ -65,8 +62,8 @@ notebookController.addNotesForAddingNotebook = (req, res, next) => {
 //Adding skills when adding a new notebook
 notebookController.addSkillsForAddingNotebook = (req, res, next) => {
   const addSkillsForAddingNotebookSQL = {
-    text: "INSERT INTO skills (notebook_id, name, rating) VALUES ($1, $2, $3)",
-    values: [req.body._id, "", 0],
+    text: 'INSERT INTO skills (notebook_id, name, rating) VALUES ($1, $2, $3)',
+    values: [req.body._id, '', 0],
   };
   db.query(addSkillsForAddingNotebookSQL, (error, response) => {
     if (error) {
@@ -82,8 +79,8 @@ notebookController.addSkillsForAddingNotebook = (req, res, next) => {
 notebookController.addRemindersForAddingNotebook = (req, res, next) => {
   const addRemindersSQL = {
     text:
-      "INSERT INTO reminders (notebook_id, description, time) VALUES ($1, $2, $3)",
-    values: [req.body._id, "", ""],
+      'INSERT INTO reminders (notebook_id, description, time) VALUES ($1, $2, $3)',
+    values: [req.body._id, '', ''],
   };
   db.query(addRemindersSQL, (error, response) => {
     if (error) {
@@ -99,7 +96,7 @@ notebookController.addRemindersForAddingNotebook = (req, res, next) => {
 notebookController.updateNotebook = (req, res, next) => {
   const updateNotebookSQL = {
     text:
-      "UPDATE notebook SET (_id, name, description, date_updated, shared_with) = ($1, $2, $3, $4, $5) WHERE _id = $1 RETURNING *",
+      'UPDATE notebook SET (_id, name, description, date_updated, shared_with) = ($1, $2, $3, $4, $5) WHERE _id = $1 RETURNING *',
     values: [
       req.params.id,
       req.body.name,
@@ -125,7 +122,7 @@ notebookController.updateNotebook = (req, res, next) => {
 //Delete notebooks part 4, deleting actual notebook
 notebookController.deleteNotebook = (req, res, next) => {
   const deleteNotebookSQL = {
-    text: "DELETE FROM notebook WHERE _id = ($1)",
+    text: 'DELETE FROM notebook WHERE _id = ($1)',
     values: [req.params.id],
   };
   db.query(deleteNotebookSQL, (error, response) => {
@@ -140,7 +137,7 @@ notebookController.deleteNotebook = (req, res, next) => {
 //Delete corresponding notes when deleting a notebook
 notebookController.deleteNotesForDeletingNotebook = (req, res, next) => {
   const deleteNotesSQL = {
-    text: "DELETE FROM notes WHERE notebook_id = ($1)",
+    text: 'DELETE FROM notes WHERE notebook_id = ($1)',
     values: [req.params.id],
   };
   db.query(deleteNotesSQL, (error, response) => {
@@ -155,7 +152,7 @@ notebookController.deleteNotesForDeletingNotebook = (req, res, next) => {
 //Delete corresponding skills when deleting a notebook
 notebookController.deleteSkillsForDeletingNotebook = (req, res, next) => {
   const deleteSkillsSQL = {
-    text: "DELETE FROM skills WHERE notebook_id = ($1)",
+    text: 'DELETE FROM skills WHERE notebook_id = ($1)',
     values: [req.params.id],
   };
   db.query(deleteSkillsSQL, (error, response) => {
@@ -170,7 +167,7 @@ notebookController.deleteSkillsForDeletingNotebook = (req, res, next) => {
 //Delete corresponding reminders when deleting a notebook
 notebookController.deleteRemindersForDeletingNotebook = (req, res, next) => {
   const deleteRemindersSQL = {
-    text: "DELETE FROM reminders WHERE notebook_id = ($1)",
+    text: 'DELETE FROM reminders WHERE notebook_id = ($1)',
     values: [req.params.id],
   };
   db.query(deleteRemindersSQL, (error, response) => {
@@ -206,7 +203,7 @@ notebookController.deleteRemindersForDeletingNotebook = (req, res, next) => {
 
 notebookController.notebookDetails = (req, res, next) => {
   const notebookDetailsSQL =
-    "SELECT notebook._id as notebook_id, notebook.name as notebook_name, notebook.description as notebook_description, notebook.date_created as notebook_date_created, notebook.shared_with as notebook_shared_with from Notebook ";
+    'SELECT notebook._id as notebook_id, notebook.name as notebook_name, notebook.description as notebook_description, notebook.date_created as notebook_date_created, notebook.shared_with as notebook_shared_with from Notebook ';
 
   db.query(notebookDetailsSQL, (error, response) => {
     if (error) {
@@ -221,7 +218,7 @@ notebookController.notebookDetails = (req, res, next) => {
 
 notebookController.notesDetails = (req, res, next) => {
   const noteDetailsSQL =
-    "SELECT notes._id as _id, notes.textbox as textbox, notes.notebook_id as notebook_id FROM notes";
+    'SELECT notes._id as _id, notes.textbox as textbox, notes.notebook_id as notebook_id FROM notes';
 
   db.query(noteDetailsSQL, (error, response) => {
     if (error) {
@@ -250,7 +247,7 @@ notebookController.notesDetails = (req, res, next) => {
 
 notebookController.skillsDetails = (req, res, next) => {
   const skillsDetailsSQL =
-    "SELECT skills.notebook_id, skills.name, skills.rating, skills._id FROM skills ";
+    'SELECT skills.notebook_id, skills.name, skills.rating, skills._id FROM skills ';
 
   db.query(skillsDetailsSQL, (error, response) => {
     if (error) {
@@ -286,7 +283,7 @@ notebookController.skillsDetails = (req, res, next) => {
 
 notebookController.remindersDetails = (req, res, next) => {
   const remindersDetailsSQL =
-    "SELECT reminders._id as _id, reminders.notebook_id as notebook_id, reminders.description as reminders_description, reminders.time as reminders_time FROM reminders";
+    'SELECT reminders._id as _id, reminders.notebook_id as notebook_id, reminders.description as reminders_description, reminders.time as reminders_time FROM reminders';
 
   db.query(remindersDetailsSQL, (error, response) => {
     if (error) {
@@ -317,7 +314,7 @@ notebookController.remindersDetails = (req, res, next) => {
 notebookController.addNotes = (req, res, next) => {
   const addNotesSQL = {
     text:
-      "INSERT INTO notes (_id, notebook_id, textbox, date_created, page_number,date_updated, shared_with) VALUES ($1, $2, $3, $4, $5, $6, $7)",
+      'INSERT INTO notes (_id, notebook_id, textbox, date_created, page_number,date_updated, shared_with) VALUES ($1, $2, $3, $4, $5, $6, $7)',
     values: [
       req.body._id,
       req.body.notebook_id,
@@ -342,7 +339,7 @@ notebookController.addNotes = (req, res, next) => {
 notebookController.updateNotes = (req, res, next) => {
   const updateNotesSQL = {
     text:
-      "UPDATE notes SET (_id, textbox, date_created, page_number, date_updated, shared_with) = ($1, $2, $3, $4, $5, $6) WHERE _id = $1 RETURNING *",
+      'UPDATE notes SET (_id, textbox, date_created, page_number, date_updated, shared_with) = ($1, $2, $3, $4, $5, $6) WHERE _id = $1 RETURNING *',
     values: [
       req.params.id,
       req.body.textbox,
@@ -366,7 +363,7 @@ notebookController.updateNotes = (req, res, next) => {
 
 notebookController.deleteNotes = (req, res, next) => {
   const deleteNotesSQL = {
-    text: "DELETE FROM notes WHERE _id = ($1)",
+    text: 'DELETE FROM notes WHERE _id = ($1)',
     values: [req.params.id],
   };
   db.query(deleteNotesSQL, (error, response) => {
@@ -384,7 +381,7 @@ notebookController.deleteNotes = (req, res, next) => {
 notebookController.addSkills = (req, res, next) => {
   const addSkillsSQL = {
     text:
-      "INSERT INTO skills (_id, notebook_id, name, rating) VALUES ($1, $2, $3, $4)",
+      'INSERT INTO skills (_id, notebook_id, name, rating) VALUES ($1, $2, $3, $4)',
     values: [
       req.body._id,
       req.body.notebook_id,
@@ -406,7 +403,7 @@ notebookController.addSkills = (req, res, next) => {
 notebookController.updateSkills = (req, res, next) => {
   const updateSkillsSQL = {
     text:
-      "UPDATE SKILLS SET (_id, notebook_id, name, rating) = ($1, $2, $3, $4) WHERE _id = $1 RETURNING *",
+      'UPDATE SKILLS SET (_id, notebook_id, name, rating) = ($1, $2, $3, $4) WHERE _id = $1 RETURNING *',
     values: [
       req.params.id,
       req.body.notebook_id,
@@ -427,7 +424,7 @@ notebookController.updateSkills = (req, res, next) => {
 //Delete notebook
 notebookController.deleteSkills = (req, res, next) => {
   const deleteSkillsSQL = {
-    text: "DELETE FROM skills WHERE _id = ($1)",
+    text: 'DELETE FROM skills WHERE _id = ($1)',
     values: [req.params.id],
   };
   db.query(deleteSkillsSQL, (error, response) => {
@@ -446,7 +443,7 @@ notebookController.deleteSkills = (req, res, next) => {
 notebookController.addReminders = (req, res, next) => {
   const addRemindersSQL = {
     text:
-      "INSERT INTO reminders (_id, notebook_id, description, date_created, time) VALUES ($1, $2, $3, $4, $5)",
+      'INSERT INTO reminders (_id, notebook_id, description, date_created, time) VALUES ($1, $2, $3, $4, $5)',
     values: [
       req.body._id,
       req.body.notebook_id,
@@ -469,7 +466,7 @@ notebookController.addReminders = (req, res, next) => {
 notebookController.updateReminders = (req, res, next) => {
   const updateRemindersSQL = {
     text:
-      "UPDATE REMINDERS SET (_id, notebook_id, description, date_created, time) = ($1, $2, $3, $4, $5) WHERE _id = $1",
+      'UPDATE REMINDERS SET (_id, notebook_id, description, date_created, time) = ($1, $2, $3, $4, $5) WHERE _id = $1',
     values: [
       req.params.id,
       req.body.notebook_id,
@@ -490,7 +487,7 @@ notebookController.updateReminders = (req, res, next) => {
 //Delete reminders
 notebookController.deleteReminders = (req, res, next) => {
   const deleteRemindersSQL = {
-    text: "DELETE FROM reminders WHERE _id = ($1)",
+    text: 'DELETE FROM reminders WHERE _id = ($1)',
     values: [req.params.id],
   };
   db.query(deleteRemindersSQL, (error, response) => {

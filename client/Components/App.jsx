@@ -13,13 +13,12 @@ class App extends Component {
     super(props);
     this.state = {
       notebookList: [],
-      count: 30, //this allows the id to be unique - don't think we need this though as id is serial from the backend.
     };
     this.deleteSkillsCard = this.deleteSkillsCard.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.submitChanges = this.submitChanges.bind(this);
   }
-  
+
   //drills from App to Notebook to Skills
   deleteSkillsCard(events, skillsid, notebook_id) {
     fetch(`/api/skills/${skillsid}`, {
@@ -35,7 +34,7 @@ class App extends Component {
     console.log(notebook_id);
   }
   //drills from App to Notebook
-  handleSubmit(events, skill, rating, id) {
+  handleSubmit(events, skill, rating, notebook_id) {
     events.preventDefault();
 
     fetch('/api/skills/', {
@@ -44,8 +43,7 @@ class App extends Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        _id: this.state.count, //unique number
-        notebook_id: id,
+        notebook_id,
         name: skill,
         rating: rating,
       }),
@@ -116,9 +114,11 @@ class App extends Component {
         notes,
       } = notebook;
 
+      console.log("PROPS:", description)
+
       return (
         <Route key={reactKey} path={`/${notebook_id}`}>
-          <h1>{name}</h1>
+          <h1>{name + " <3"}</h1>
           <Notebook
             notebook_id={notebook_id}
             reactKey={reactKey}

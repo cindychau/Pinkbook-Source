@@ -11,12 +11,10 @@ SET row_security = off;
 --change name of table to notebook
 
 CREATE TABLE public.notebook (
-	  "_id" serial NOT NULL,
+	  "_id" serial PRIMARY KEY,
 	  "name" varchar,
     "description" varchar,
 	  "date_created" varchar,
-    "page_number" integer,
-    "date_updated" varchar,
     "shared_with" varchar,
     PRIMARY KEY ("_id")
 ) WITH (
@@ -25,12 +23,10 @@ CREATE TABLE public.notebook (
 
 --created new notes table
 CREATE TABLE public.notes (
-	"_id" serial NOT NULL,
+	"_id" serial PRIMARY KEY,
 	"notebook_id" bigint,
   "textbox" varchar,
 	"date_created" varchar,
-  "page_number" integer,
-  "date_updated" varchar,
   "shared_with" varchar,
 	PRIMARY KEY ("_id"),
   CONSTRAINT "fk_notebook"
@@ -42,7 +38,7 @@ CREATE TABLE public.notes (
 
 --created new skills table
 CREATE TABLE public.skills (
-	"_id" serial NOT NULL,
+	"_id" serial PRIMARY KEY,
 	"notebook_id" bigint,
   "name" varchar,
 	"rating" integer,
@@ -56,7 +52,7 @@ CREATE TABLE public.skills (
 
 --created new reminders table
 CREATE TABLE public.reminders (
-	"_id" serial NOT NULL,
+	"_id" serial PRIMARY KEY,
 	"notebook_id" bigint,
   "description" varchar,
 	"date_created" varchar,
